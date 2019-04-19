@@ -1,0 +1,20 @@
+{
+    "name": "chaincszzz/duoduoke",
+    "description": "多多进宝sdk",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "namestc",
+            "email": "namestc@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {"duoduoke\\": "src/"}
+    }
+}
