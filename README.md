@@ -53,3 +53,6 @@ $dk->goods_basic_info_get();
 ### Tips
 - Dk.php中存在很多ext参数,这是一个可选参数数组
 - 调用api后返回的是一个数组
+
+### 联系
+wechat:thinkpapapa
