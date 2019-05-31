@@ -64,7 +64,7 @@ class Dk {
     }
     
     /**
-     * @param       $goods_id int 商品id
+     * @param       $goods_id array 商品id
      * @param array $ext      非必填参数数组
      *
      * @return bool|mixed|string
@@ -74,7 +74,7 @@ class Dk {
      */
     public function goods_detail($goods_id, $ext = []) {
         $param = [
-            'goods_id_list' => "[{$goods_id}]",
+            'goods_id_list' => json_encode([$goods_id]), // 修改goods_detail
         ];
         
         if ($ext) {
@@ -352,16 +352,16 @@ class Dk {
     }
     
     /**
-     * @param string $pid 推广位id
+     * @param array $pid 推广位id
      * @param array  $ext
      *                    生成转盘抽免单url
      *
      * @return bool|mixed|string
      * @throws DkException
      */
-    public function lottery_url_gen($pid = '', $ext = []) {
+    public function lottery_url_gen($pid, $ext = []) {
         $param = [
-            'pid_list' => "['{$pid}']",
+            'pid_list' => json_encode($pid),
         ];
         if ($ext) {
             $param = array_merge($param, $ext);
@@ -421,9 +421,13 @@ class Dk {
      * @throws DkException
      */
     public function merchant_list_get($ext = []) {
-        $param = $ext;
+        foreach ($ext as &$item){
+            if(is_array($item)){
+                $item = json_encode($item);
+            }
+        }
         
-        return $this->request($this->type['merchant.list.get'], $param);
+        return $this->request($this->type['merchant.list.get'], $ext);
     }
     
     /**
@@ -646,6 +650,11 @@ class Dk {
         ];
         if ($ext) {
             $param = array_merge($param, $ext);
+        }
+        foreach ($param as &$item){
+            if(is_array($item)){
+                $item = json_encode($item);
+            }
         }
         
         return $this->request($this->type['goods.search'], $param);
